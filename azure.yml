@@ -18,12 +18,14 @@ env:
   NODE_VERSION: '10.x'                # set this to the node version to use
   credentials: ${{ secrets.AZURE_CREDENTIALS }}
 
-steps:
-    name: Sample Azure action
-    with: # Set Azure credentials secret as an input
-      credentials: ${{ secrets.AZURE_CREDENTIALS }}
-
 jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
   build-and-deploy:
     name: Build and Deploy
     runs-on: ubuntu-latest
